@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<TDocGium>
+
+
+@foreach (var item in Model)
+{
+   @await Html.PartialAsync("PartialSach", item)
+}
+

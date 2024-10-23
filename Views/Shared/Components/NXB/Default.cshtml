@@ -1,0 +1,43 @@
+﻿@model IEnumerable<TNhaXb>
+
+<nav id="menu" class="pull-right">
+	<ul>
+
+		@foreach (var item in Model)
+		{
+            var getURL = "https://localhost:7226/api/sachapi/"+ @item.MaNxb.Trim();
+            <li><a style="cursor:pointer" onclick="hienSachTheoNgonNgu(@getURL)">@item.TenNxb</a></li>
+		}
+
+	</ul>
+</nav>
+
+
+
+
+
+<script>
+    function hienSachTheoNgonNgu(getUrl) {
+        var str = "";
+        $.ajax({
+            type: 'GET',
+            url: getUrl, // Corrected to lowercase 'url'
+            dataType: 'json',
+            success: function (data) {
+                $.each(data, function (key, val) {
+                    str += `
+                        <li class="span3">
+                            <div class="product-box">
+                                <span class="sale_tag"></span>
+                                    <p><a href="product_detail.html"><img src="/image/sach/${val.fileAnh}" alt="" /></a></p>
+                                    <a href="product_detail.html" class="title">${val.tenSach}</a><br />
+                                    <a href="products.html" class="category">${val.maSach}</a>
+                            </div>
+                        </li>
+                    `;
+                });
+                $('#displaySach').html(str); // Append the result to the div
+            }
+        });
+    }
+</script>
